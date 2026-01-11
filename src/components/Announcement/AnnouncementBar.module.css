@@ -1,0 +1,31 @@
+.announcement {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 32px;
+  overflow: hidden;
+  background-color: goldenrod;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 14px;
+  z-index: 1100;
+  display: block;
+}
+
+.track {
+  display: inline-block;
+  white-space: nowrap;
+  will-change: transform;
+  animation: marquee 12s linear infinite;
+  padding-left: 100%;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}

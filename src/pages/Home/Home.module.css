@@ -1,0 +1,146 @@
+/* SECCIÓN BANNER */	
+.banner {
+  width: 100vw;
+  height: 100vh;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  min-height: clamp(660px, 60vh, 820px);
+  background-image: url('../../assets/images/video_banner.gif');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Comic Sans MS', sans-serif;
+}
+
+.content {
+  text-align: center;
+  color: #ffffff;
+  padding: 32px 16px;
+  width: 100%;
+  max-width: 1200px;
+}
+
+.title {
+  font-size: clamp(32px, 6vw, 64px);
+  line-height: 1.1;
+  margin: 0 0 12px;
+  font-weight: 700;
+}
+
+.subtitle {
+  font-size: clamp(16px, 2.8vw, 22px);
+  opacity: 0.9;
+  margin: 0;
+}
+
+/* SECCIÓN CATEGORIAS */
+
+.merchSection {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+}
+
+.merchHeader {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  background-image: linear-gradient(90deg, #000000 0%, goldenrod 50%, black 100%);
+  /* background-color: black; */
+}
+
+.merchTitle {
+  font-size: 70px;
+  color: #ffffff;
+  margin: 0;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-family: 'Comic Sans MS', sans-serif;
+}
+
+.cardsGrid {
+  display: grid;
+  gap: 0;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  padding: 0;
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.06);
+  overflow: hidden;
+  backdrop-filter: blur(6px);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative;
+}
+
+.card:hover .cardImage {
+  transition: transform .6s ease;
+  transform: scale(1.1);
+
+}
+
+.cardImage {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  display: block;
+}
+
+.cardBody {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 16px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0.25) 40%, rgba(0, 0, 0, 0) 70%);
+}
+
+.card:hover .cardBody {
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0.35) 40%, rgba(0, 0, 0, 0) 70%);
+}
+
+.cardTitle {
+  font-size: 18px;
+  margin: 0;
+  letter-spacing: 0.5px;
+  background: goldenrod;
+  color: #111111;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 999px;
+  font-weight: 700;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+@media (max-width: 480px) {
+  .cardsGrid {
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding: 0;
+  }
+}
+
+@media (min-width: 768px) {
+  .cardsGrid {
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 0;
+  }
+}
+
+@media (min-width: 1024px) {
+  .cardsGrid {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 0;
+  }
+}
