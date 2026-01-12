@@ -6,6 +6,7 @@
   top: 32px;
   left: 0;
   right: 0;
+  z-index: 1000;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   align-items: center;
@@ -31,18 +32,42 @@
 
 .navLinks a {
   text-decoration: none;
-  color: #333;
-  font-weight: 500;
+  color: #ffffff;
+  font-weight: 600;
 }
 
 .navLinks a:hover {
-  text-decoration: underline;
+  text-decoration: none;
 }
 
 .logoImage {
   height: 100px;
   width: auto;
   display: inline-block;
+}
+
+.navChip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.18);
+  background: rgba(255,255,255,0.06);
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+  transition: background-color .2s ease, border-color .2s ease, transform .12s ease, box-shadow .2s ease, opacity .2s ease;
+}
+
+.navChip:hover {
+  background: rgba(255,255,255,0.12);
+  border-color: rgba(255,255,255,0.28);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 22px rgba(0,0,0,0.28);
 }
 
 .cartIcon {

@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
-import { FaInstagram } from "react-icons/fa";
+import { FaInstagram, FaTiktok } from "react-icons/fa";
+import { useLocation } from 'react-router-dom'
 import styles from './Home.module.css'
 import logoMark from '../../assets/images/nuevologo360.gif'
 import img1 from '../../assets/images/tshirt.jpg'
@@ -46,18 +47,16 @@ export function Home() {
   const turbRef = useRef<SVGFETurbulenceElement | null>(null)
   const dispRef = useRef<SVGFEDisplacementMapElement | null>(null)
   const lastRef = useRef({ x: 0, y: 0, t: 0 })
-  const glitchRef = useRef(0)
+  const energyRef = useRef(0)
   const animRef = useRef<number | null>(null)
-  const tick = () => {
-    glitchRef.current *= 0.9
-    if (dispRef.current) dispRef.current.setAttribute('scale', glitchRef.current.toFixed(1))
-    if (turbRef.current) turbRef.current.setAttribute('baseFrequency', (0.006 + glitchRef.current * 0.0012).toFixed(4))
-    if (glitchRef.current > 0.25) {
-      animRef.current = requestAnimationFrame(tick)
-    } else {
-      animRef.current = null
-      setDistort(false)
-    }
+  const tick = (t: number) => {
+    energyRef.current *= 0.988
+    const wobble = Math.sin(t * 0.015) + 0.7 * Math.sin(t * 0.033) + 0.4 * Math.sin(t * 0.067)
+    const scale = 3 + 2 * wobble + 6 * energyRef.current
+    const baseF = 0.006 + 0.0018 * (1 + Math.sin(t * 0.02)) + 0.0012 * energyRef.current
+    if (dispRef.current) dispRef.current.setAttribute('scale', scale.toFixed(1))
+    if (turbRef.current) turbRef.current.setAttribute('baseFrequency', baseF.toFixed(4))
+    animRef.current = requestAnimationFrame(tick)
   }
 
   const next = () => setCurrent((c) => (c + 1) % icons.length)
@@ -68,6 +67,17 @@ export function Home() {
     }, 3000)
     return () => clearInterval(id)
   }, [icons.length])
+
+  const location = useLocation()
+  useEffect(() => {
+    const wantScroll =
+      (location.state as { scrollTo?: string } | null)?.scrollTo === 'categorias' ||
+      window.location.hash === '#categorias'
+    if (wantScroll) {
+      const el = document.getElementById('categorias')
+      if (el) setTimeout(() => el.scrollIntoView({ behavior: 'smooth', block: 'start' }), 0)
+    }
+  }, [location.state])
 
   const posClass = (i: number) => {
     if (i === current) return styles.iconsCenter
@@ -80,13 +90,13 @@ export function Home() {
     <>
       <section className={styles.banner}>
         <div className={styles.content}>
-          <h1 className={styles.title}>WELCOME TO BEARYSAD WORLD</h1>
+          <h1 className={styles.title}>BEARYSAD WORLD</h1>
         </div>
       </section>
 
-      <section className={styles.merchSection}>
+      <section className={styles.merchSection} id="categorias">
         <div className={styles.merchHeader}>
-          <h2 className={styles.merchTitle}>CATEGORIAS</h2>
+          <h2 className={styles.merchTitle}>CATEGORÍAS</h2>
         </div>
         <div className={styles.cardsGrid}>
           <article className={styles.card}>
@@ -135,6 +145,10 @@ export function Home() {
 
       <section
         className={styles.FooterSeccion}
+        onMouseEnter={() => {
+          setDistort(true)
+          if (!animRef.current) animRef.current = requestAnimationFrame(tick)
+        }}
         onMouseMove={(e) => {
           const r = e.currentTarget.getBoundingClientRect()
           const nx = (e.clientX - r.left) / r.width
@@ -148,15 +162,15 @@ export function Home() {
           const dy = e.clientY - lastRef.current.y
           const dt = Math.max(12, now - lastRef.current.t)
           const speed = Math.hypot(dx, dy) / dt
-          const boost = Math.min(40, speed * 180)
-          glitchRef.current = Math.max(glitchRef.current, boost)
+          const boost = Math.min(1, speed * 0.07)
+          energyRef.current = Math.min(1, energyRef.current + boost)
           if (!animRef.current) animRef.current = requestAnimationFrame(tick)
           lastRef.current = { x: e.clientX, y: e.clientY, t: now }
           setDistort(true)
         }}
         onMouseLeave={() => {
           setDistort(false)
-          glitchRef.current = 0
+          energyRef.current = 0
           if (dispRef.current) dispRef.current.setAttribute('scale', '0')
           if (turbRef.current) turbRef.current.setAttribute('baseFrequency', '0.006')
           if (animRef.current) {
@@ -193,6 +207,9 @@ export function Home() {
             <nav className={styles.FooterList}>
               <a href="https://instagram.com/beaarysad" target="_blank" rel="noopener noreferrer">
                 <FaInstagram className={styles.FooterIcon} />
+              </a>
+              <a href="*" target="_blank" rel="noopener noreferrer">
+                <FaTiktok className={styles.FooterIcon} />
               </a>
             </nav>
           </div>
