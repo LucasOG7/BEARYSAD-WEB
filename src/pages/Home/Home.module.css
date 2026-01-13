@@ -194,6 +194,10 @@
   font-weight: 700;
   text-transform: uppercase;
   cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 @media (max-width: 480px) {

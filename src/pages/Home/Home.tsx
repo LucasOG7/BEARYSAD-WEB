@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { FaInstagram, FaTiktok } from "react-icons/fa";
-import { useLocation } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import styles from './Home.module.css'
 import logoMark from '../../assets/images/nuevologo360.gif'
 import img1 from '../../assets/images/tshirt.jpg'
@@ -102,25 +102,33 @@ export function Home() {
           <article className={styles.card}>
             <img src={img1} alt="T-SHIRTS" className={styles.cardImage} />
             <div className={styles.cardBody}>
-              <button className={styles.cardTitle}>T-SHIRTS</button>
+              <Link to="/categoria/t-shirts" className={styles.cardTitle} aria-label="Ver categoría T-SHIRTS">
+                T-SHIRTS
+              </Link>
             </div>
           </article>
           <article className={styles.card}>
             <img src={img2} alt="PANTS" className={styles.cardImage} />
             <div className={styles.cardBody}>
-              <button className={styles.cardTitle}>PANTS</button>
+              <Link to="/categoria/pants" className={styles.cardTitle} aria-label="Ver categoría PANTS">
+                PANTS
+              </Link>
             </div>
           </article>
           <article className={styles.card}>
             <img src={img3} alt="CAPS" className={styles.cardImage} />
             <div className={styles.cardBody}>
-              <button className={styles.cardTitle}>CAPS</button>
+              <Link to="/categoria/caps" className={styles.cardTitle} aria-label="Ver categoría CAPS">
+                CAPS
+              </Link>
             </div>
           </article>
           <article className={styles.card}>
             <img src={img4} alt="ACCESORIES" className={styles.cardImage} />
             <div className={styles.cardBody}>
-              <button className={styles.cardTitle}>ACCESORIES</button>
+              <Link to="/categoria/accesories" className={styles.cardTitle} aria-label="Ver categoría ACCESORIES">
+                ACCESORIES
+              </Link>
             </div>
           </article>
         </div>
@@ -199,7 +207,7 @@ export function Home() {
           <div className={styles.FooterCol}>
             <div className={styles.FooterHead}>Contacto</div>
             <div className={styles.FooterList}>
-              <a href="mailto:bearysadcontacto@bearysad.com">bearysadcontacto@bearysad.com</a>
+              <a href="mailto:bearysadcontacto@bearysad.com">bearysadcontacto@gmail.com</a>
             </div>
           </div>
           <div className={styles.FooterCol}>

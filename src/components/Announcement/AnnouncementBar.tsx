@@ -1,6 +1,6 @@
 import styles from './AnnouncementBar.module.css'
 
-const messages = ['Envíos a todo el país', 'MAKECHILEANARTISTGREATAGAIN']
+const messages = ['Envíos a todo Chile', 'Welcome to Bearysad World']
 const text = messages.join(' • ')
 
 export function AnnouncementBar() {
