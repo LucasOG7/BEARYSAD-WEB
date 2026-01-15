@@ -1,14 +1,11 @@
-import { Link, useParams } from 'react-router-dom'
-import styles from './Category.module.css'
+import tshirtImg from '../assets/images/tshirt.jpg'
+import pantsImg from '../assets/images/pants.jpg'
+import capsImg from '../assets/images/capss.jpg'
+import accessoriesImg from '../assets/images/accesorios.jpg'
 
-import tshirtImg from '../../assets/images/tshirt.jpg'
-import pantsImg from '../../assets/images/pants.jpg'
-import capsImg from '../../assets/images/capss.jpg'
-import accessoriesImg from '../../assets/images/accesorios.jpg'
+export type CategorySlug = 't-shirts' | 'pants' | 'caps' | 'accesories'
 
-type CategorySlug = 't-shirts' | 'pants' | 'caps' | 'accesories'
-
-type ProductMock = {
+export type ProductMock = {
   id: string
   title: string
   price: string
@@ -16,13 +13,13 @@ type ProductMock = {
   tag?: string
 }
 
-type CategoryConfig = {
+export type CategoryConfig = {
   title: string
   accent: 'gold' | 'silver' | 'platinum'
   products: ProductMock[]
 }
 
-const categoryConfig: Record<CategorySlug, CategoryConfig> = {
+export const categoryConfig: Record<CategorySlug, CategoryConfig> = {
   't-shirts': {
     title: 'T-SHIRTS',
     accent: 'platinum',
@@ -71,59 +68,5 @@ const categoryConfig: Record<CategorySlug, CategoryConfig> = {
       { id: 'ac-006', title: 'Bearysad Limited', price: '$24.990', imageSrc: accessoriesImg, tag: 'LIMITED' },
     ],
   },
-}
-
-export function Category() {
-  const { slug } = useParams<{ slug: string }>()
-  const category = (slug ? categoryConfig[slug as CategorySlug] : undefined) ?? null
-
-  if (!category) {
-    return (
-      <section className={styles.page}>
-        <div className={styles.container}>
-          <header className={styles.header}>
-            <h1 className={styles.title}>CATEGORÍA NO ENCONTRADA</h1>
-            <p className={styles.subtitle}>Vuelve a la tienda y elige una categoría válida.</p>
-            <div className={styles.headerActions}>
-              <Link className={styles.backButton} to="/">
-                Volver al inicio
-              </Link>
-            </div>
-          </header>
-        </div>
-      </section>
-    )
-  }
-
-  return (
-    <section className={`${styles.page} ${styles[`accent_${category.accent}`]}`}>
-      <div className={styles.container}>
-        <header className={styles.header}>
-          <div className={styles.kicker}>BEARYSAD WORLD</div>
-          <h1 className={styles.title}>{category.title}</h1>
-
-        </header>
-
-        <section className={styles.grid} aria-label={`Productos de ${category.title}`}>
-          {category.products.map((p) => (
-            <article key={p.id} className={styles.card}>
-              <Link to={`/product/${p.id}`} className={styles.cardLink} aria-label={`Ver ${p.title}`}>
-                <div className={styles.cardMedia}>
-                  {p.tag ? <div className={styles.cardTag}>{p.tag}</div> : null}
-                  <img className={styles.cardImage} src={p.imageSrc} alt={p.title} loading="lazy" />
-                </div>
-                <div className={styles.cardBody}>
-                  <div className={styles.cardTitle}>{p.title}</div>
-                  <div className={styles.cardMeta}>
-                    <span className={styles.cardPrice}>{p.price}</span>
-                  </div>
-                </div>
-              </Link>
-            </article>
-          ))}
-        </section>
-      </div>
-    </section>
-  )
 }
 
