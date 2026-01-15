@@ -7,22 +7,26 @@ import { Cart } from './pages/Cart/Cart'
 import { Category } from './pages/Category/Category'
 import { ProductDetail } from './pages/ProductDetail/ProductDetail'
 import { NotFound } from './pages/NotFound/NotFound'
+import { Footer } from './components/Footer/Footer'
 
 function App() {
 
   return (
-    <>
+    <div className="AppLayout">
       <AnnouncementBar />
       <Navbar />
 
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/categoria/:slug" element={<Category />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/product/:id" element={<ProductDetail />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </>
+      <main className="AppContent">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/categoria/:slug" element={<Category />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/product/:id" element={<ProductDetail />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </main>
+      <Footer />
+    </div>
   )
 }
 
