@@ -1,12 +1,14 @@
 import styles from './Navbar.module.css'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import logoSrc from '../../assets/images/lapida360.gif'
-
+import { useCart } from '../../contexts/CartContextBase'
+import { FaShoppingCart } from "react-icons/fa";
 
 
 export const Navbar = () => {
     const navigate = useNavigate()
     const location = useLocation()
+    const { count } = useCart()
     const goCategorias = (e: React.MouseEvent) => {
         e.preventDefault()
         if (location.pathname !== '/') {
@@ -44,7 +46,8 @@ export const Navbar = () => {
                     title="Carrito de compra"
                     className={styles.navChip}
                 >
-                    CARRITO
+                    <FaShoppingCart /> &nbsp;
+                    CARRITO <span className={styles.cartBadge}>{count}</span>
                 </Link>
             </div>
         </nav>

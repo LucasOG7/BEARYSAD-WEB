@@ -6,7 +6,8 @@ import capsImg from '../../assets/images/capss.jpg'
 import accessoriesImg from '../../assets/images/accesorios.jpg'
 import { useMemo, useState } from 'react'
 import { categoryConfig } from '../../data/catalog'
-import { RiShoppingBasketFill } from "react-icons/ri";
+import { useCart } from '../../contexts/CartContextBase'
+import { RiShoppingBasketFill, RiErrorWarningFill } from "react-icons/ri";
 
 export const ProductDetail = () => {
   const { id } = useParams<{ id: string }>()
@@ -31,8 +32,23 @@ export const ProductDetail = () => {
   const [selectedSize, setSelectedSize] = useState<string | null>(null)
   const [qty, setQty] = useState(1)
   const [added, setAdded] = useState(false)
+  const [showAlert, setShowAlert] = useState(false)
+  const { addItem } = useCart()
 
   const handleAdd = () => {
+    const requiresSize = product.sizes.length > 1
+    if (requiresSize && !selectedSize) {
+      setShowAlert(true)
+      return
+    }
+    addItem({
+      id: id ?? 'unknown',
+      title: product.title,
+      imageSrc: product.images[0],
+      priceLabel: product.price,
+      size: selectedSize,
+      qty,
+    })
     setAdded(true)
     setTimeout(() => setAdded(false), 650)
   }
@@ -69,13 +85,22 @@ export const ProductDetail = () => {
                   <button
                     key={s}
                     className={`${styles.sizeChip} ${selectedSize === s ? styles.sizeChipActive : ''}`}
-                    onClick={() => setSelectedSize(s)}
+                    onClick={() => {
+                      setSelectedSize(s)
+                      if (showAlert) setShowAlert(false)
+                    }}
                     aria-label={`Seleccionar talla ${s}`}
                   >
                     {s}
                   </button>
                 ))}
               </div>
+              {showAlert ? (
+                <div className={styles.sizeAlert} role="alert" aria-live="assertive">
+                  <RiErrorWarningFill />
+                  Selecciona una talla antes de agregar
+                </div>
+              ) : null}
             </div>
 
             <div className={styles.qtyGroup}>

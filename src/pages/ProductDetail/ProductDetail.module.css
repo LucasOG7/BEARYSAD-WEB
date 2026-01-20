@@ -234,6 +234,28 @@
   100% { transform: scale(1); }
 }
 
+.sizeAlert {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: rgba(255,215,0,0.08);
+  border: 1px solid rgba(255,215,0,0.35);
+  color: #ffd700;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  animation: fadeSlide 280ms ease-out 1;
+}
+
+@keyframes fadeSlide {
+  0% { opacity: 0; transform: translateY(-6px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
 @media (max-width: 768px) {
   .productContainer {
     grid-template-columns: 1fr;

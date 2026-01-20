@@ -372,6 +372,7 @@
   }
   .iconsTitleMain {
     font-size: clamp(48px, 18vw, 120px);
+    text-align: center;
   }
   .iconsSlide {
     width: clamp(200px, 70vw, 360px);
